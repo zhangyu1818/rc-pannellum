@@ -36,8 +36,10 @@ const App = () => {
       ref={viewerRef}
       clickInfo
       className="viewer"
-      width="100vw"
-      height="100vh"
+      style={{
+        width: "100vw",
+        height: "100vh"
+      }}
       {...config}
     />
   );
