@@ -1,0 +1,27 @@
+{
+  "name": "rc-pannellum",
+  "version": "0.0.1",
+  "main": "dist/index.esm.js",
+  "typings": "dist/index.d.ts",
+  "author": {
+    "name": "zhangyu1818",
+    "email": "723156735@qq.com"
+  },
+  "repository": "https://github.com/zhangyu1818/rc-pannellum.git",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/react": "^16.9.41",
+    "father": "^2.29.5",
+    "prettier": "^2.0.5",
+    "typescript": "^3.9.5"
+  },
+  "scripts": {
+    "build": "father build"
+  },
+  "peerDependencies": {
+    "react": "^16.8.6"
+  },
+  "dependencies": {
+    "pannellum": "^2.5.6"
+  }
+}
