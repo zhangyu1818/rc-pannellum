@@ -15,21 +15,11 @@ export interface PannellumRef {
 }
 
 const Pannellum: React.ForwardRefRenderFunction<PannellumRef, PannellumProps> = (
-  { style, className, clickInfo, ...restProps },
+  { style, className, ...restProps },
   ref
 ) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const pannellumRef = useRef<PannellumViewer | null>(null);
-
-  useEffect(() => {
-    pannellumRef.current = window.pannellum.viewer(containerRef.current!, {
-      ...restProps,
-    });
-
-    return () => {
-      pannellumRef.current?.destroy();
-    };
-  }, [restProps]);
 
   const consoleClickInfo = useCallback((e: MouseEvent) => {
     if (!pannellumRef.current) {
@@ -41,11 +31,20 @@ const Pannellum: React.ForwardRefRenderFunction<PannellumRef, PannellumProps> = 
   }, []);
 
   useEffect(() => {
+    const { clickInfo, ...params } = restProps;
+    pannellumRef.current = window.pannellum.viewer(containerRef.current!, {
+      ...params,
+    });
+
     if (clickInfo) pannellumRef.current?.on('mousedown', consoleClickInfo);
+
     return () => {
-      pannellumRef.current?.off('mousedown', consoleClickInfo);
+      try {
+        pannellumRef.current?.off('mousedown', consoleClickInfo);
+      } catch {}
+      pannellumRef.current?.destroy();
     };
-  }, [clickInfo, restProps]);
+  }, [restProps]);
 
   useImperativeHandle(ref, () => ({
     getViewer: () => pannellumRef.current!,
